@@ -1,6 +1,6 @@
-import React, { ReactHTMLElement, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Create() {
   const [values, setValues] = useState({
@@ -10,19 +10,22 @@ function Create() {
     amount: "",
   });
 
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
 
-
-  function handleSubmit(e : React.FormEvent ){
-    e.preventDefault()
-
-    axios.post('/api/add_listing', values)
-    .then((res)=>{
-        
-        
-        console.log(res)
-    })
-    .catch((err)=>console.log(err))
-}
+    axios
+      .post("/api/add_listing", values)
+      .then((res) => {
+        console.log(res);
+        setValues({
+          symbol:"",
+          name: "",
+          price: "",
+          amount: "",
+        })
+      })
+      .catch((err) => console.log(err));
+  }
   return (
     <div className="container vh-100 vw-100 bg-primary">
       <div className="row">
@@ -40,6 +43,7 @@ function Create() {
               name="symbol"
               placeholder="BOK"
               required
+              value={values.symbol}
               onChange={(e) => setValues({ ...values, symbol: e.target.value })}
             />
           </div>
@@ -50,6 +54,7 @@ function Create() {
               name="name"
               placeholder="Bank of Kigali"
               required
+              value={values.name}
               onChange={(e) => setValues({ ...values, name: e.target.value })}
             />
           </div>
@@ -59,6 +64,7 @@ function Create() {
               type="number"
               name="price"
               required
+              value={values.price}
               onChange={(e) => setValues({ ...values, price: e.target.value })}
             />
           </div>
@@ -67,6 +73,7 @@ function Create() {
             <input
               type="number"
               name="amount"
+              value={values.amount}
               required
               onChange={(e) => setValues({ ...values, amount: e.target.value })}
             />
