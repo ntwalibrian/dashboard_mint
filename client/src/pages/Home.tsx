@@ -11,7 +11,7 @@ interface StockListing {
 }
 
 function Home() {
-  // const [deleted, setDeleted] = useState(true);
+  const [deleted, setDeleted] = useState(true);
   const [data, setData] = useState<StockListing[]>([]);
   // useEffect(() => {
   //   if (deleted) {
@@ -27,29 +27,42 @@ function Home() {
   //   }
   // }, [deleted]);
   useEffect(() => {
-    axios
-      .get("/api/get_listing")
+    if (deleted) {
+      setDeleted(false);
+      axios.get("/api/get_listing")
       .then((res) => {
-        console.log(res)
-        setData(res.data.rows);
-        console.log(data)
+        setData(res.data.rows)
       })
       .catch((err) => {
         console.error("Error fetching listings:", err);
-      });
-  });
+      })
+    }
+  }, [deleted])
 
-  // function handleDelete(id: number) {
+  // useEffect(() => {
   //   axios
-  //     .delete(`/api/delete_listing/${id}`)
+  //     .get("/api/get_listing")
   //     .then((res) => {
-  //       // setDeleted(true);
-  //       console.log(res);
+  //       console.log(res)
+  //       setData(res.data.rows);
+  //       console.log(data)
   //     })
   //     .catch((err) => {
-  //       console.log("error occured" + err);
+  //       console.error("Error fetching listings:", err);
   //     });
-  // }
+  // });
+
+  function handleDelete(id: number) {
+    axios
+      .delete(`/api/delete_listing/${id}`)
+      .then((res) => {
+        setDeleted(true);
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log("error occured" + err);
+      });
+  }
 
   return (
     <div className="container-fluid bg-primary ">
@@ -79,12 +92,12 @@ function Home() {
               <td>{item.current_price}</td>
               <td>{item.total_supply}</td>
               <td>
-                {/* <button
+                <button
                   className="btn mx-2 btn-danger"
                   onClick={() => handleDelete(item.id)}
                 >
                   Delete
-                </button> */}
+                </button>
                 <Link
                   to={`/edit/${item.id}`}
                   className="btn btn-primary btn-sm me-2"

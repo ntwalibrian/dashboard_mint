@@ -16,9 +16,9 @@ const port = 3001;
 
 app.post("/add_listing", stockMethods.addListing)
 app.get("/get_listing", stockMethods.getListing )
-// app.get("/get_listing/:id", stockMethods.getListingById )
-// app.post("/update_listing/:id", stockMethods.updateListing )
-// app.delete("/delete_listing/:id", stockMethods.deleteListing)
+app.get("/get_listing/:id", stockMethods.getListingById )
+app.post("/update_listing/:id", stockMethods.updateListing )
+app.delete("/delete_listing/:id", stockMethods.deleteListing)
 app.post("/add_user", authMethods.addUser)
 app.post("/verify_user", authMethods.verifyUser)
 
