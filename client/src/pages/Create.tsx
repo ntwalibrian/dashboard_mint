@@ -18,11 +18,11 @@ function Create() {
       .then((res) => {
         console.log(res);
         setValues({
-          symbol:"",
+          symbol: "",
           name: "",
           price: "",
           amount: "",
-        })
+        });
       })
       .catch((err) => console.log(err));
   }
