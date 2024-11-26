@@ -32,7 +32,10 @@ function Login() {
         });
         localStorage.setItem("authToken", res.data.token);
         console.log(res.data.token)
-        navigate(`/dashboard/${res.data.user.id}`)
+        setTimeout(() => {
+          navigate(`/dashboard/${res.data.user.id}`)
+        }, 4000)
+        
       })
       .catch((err) => {
         console.log("fuck");
