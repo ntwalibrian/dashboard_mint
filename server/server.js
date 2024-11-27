@@ -21,7 +21,7 @@ app.post("/update_listing/:id", stockMethods.updateListing )
 app.delete("/delete_listing/:id", stockMethods.deleteListing)
 app.post("/add_user", authMethods.addUser)
 app.post("/verify_user", authMethods.verifyUser)
-
+app.get("/get_portfolio/:id", stockMethods.getPortfolio)
 
 
 // const db = mysql.createConnection({

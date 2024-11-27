@@ -33,7 +33,9 @@ function Login() {
         localStorage.setItem("authToken", res.data.token);
         console.log(res.data.token)
         setTimeout(() => {
-          navigate(`/dashboard/${res.data.user.id}`)
+          navigate(`/dashboard/${res.data.user.id}`,{
+            state : { user : res.data.user}
+          })
         }, 4000)
         
       })
