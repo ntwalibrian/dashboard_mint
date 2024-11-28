@@ -1,12 +1,13 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from "./pages/Home";
-import Create from "./pages/Create";
-import Edit from "./pages/Edit";
+import Home from "./Freestyle/Home";
+import Create from "./Freestyle/Create";
+import Edit from "./Freestyle/Edit";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Login from "./pages/templates/Login";
-import DashBoard from "./pages/templates/DashBoard";
-import SignUp from "./pages/templates/SignUp";
+import Login from "./Freestyle/Login";
+import DashBoard from "./pages/UserDashBoard";
+import SignUp from "./Freestyle/SignUp";
 import ProtectedRoute from "./component.tsx/ProtectedRoute";
+
 
 function App() {
   return (
