@@ -9,6 +9,7 @@ interface StockListing {
   company_name: string;
   current_price: number;
   total_supply: number;
+  logo: string;
 }
 
 function Home() {
@@ -32,14 +33,16 @@ function Home() {
       setDeleted(false);
       axios.get("/api/get_listing")
       .then((res) => {
+        console.log(res.data)
         setData(res.data.rows)
+        console.log(data)
       })
       .catch((err) => {
         console.error("Error fetching listings:", err);
       })
     }
   }, [deleted])
-
+  
   // useEffect(() => {
   //   axios
   //     .get("/api/get_listing")

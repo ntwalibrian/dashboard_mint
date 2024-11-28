@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Home, BarChart2, Layers, Users, Settings, Phone } from "lucide-react";
 import { ChevronUp, Eye, EyeOff } from "lucide-react"; // Add required icons
 
-function Sidebar() {
+function Sidebar({totalPortfolio} : {totalPortfolio ?: number}) {
   const [activeItem, setActiveItem] = useState("home");
   const [showInvestments, setShowInvestments] = useState(true); // State to toggle visibility
 
@@ -22,7 +22,7 @@ function Sidebar() {
       </div>
 
       <div
-        className="bg-black text-white flex justify-between items-center rounded-lg mx-4 px-4"
+        className="bg-black text-white flex justify-between items-center rounded-lg mx-4 p-4"
         style={{
           height: "72.75px",
         }}
@@ -30,7 +30,7 @@ function Sidebar() {
         <div className="flex items-center space-x-3">
           <div>
             <div className="text-sm font-semibold">Investments</div>
-            {showInvestments && <div className="text-lg font-bold">$5093</div>}
+            {showInvestments && <div className="text-lg font-bold">{totalPortfolio}RFW</div>}
           </div>
         </div>
 
