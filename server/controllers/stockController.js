@@ -90,6 +90,7 @@ exports.getPortfolio = (req, res) => {
     stocks.symbol,
     stocks.company_name,
     stocks.total_supply,
+    stocks.logo,
     stocks.current_price
   FROM user_stock_holdings  
   JOIN stocks ON user_stock_holdings.stock_id = stocks.id 

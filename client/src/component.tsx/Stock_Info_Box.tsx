@@ -7,6 +7,7 @@ interface StockInfoBoxProps {
   stockName: string;
   logoSrc: string;
   price: number;
+  quantity : number;
   change: number;
   chartData: { name: string; value: number }[];
 }
@@ -16,6 +17,7 @@ export function StockInfoBox({
   logoSrc,
   price,
   change,
+  quantity,
   chartData,
 }: StockInfoBoxProps) {
   const isPositive = change >= 0;
@@ -23,7 +25,7 @@ export function StockInfoBox({
   const changeIcon = isPositive ? "▲" : "▼";
 
   return (
-    <div className="w-[200px] h-[100px] overflow-hidden  ">
+    <div className="w-[200px] h-[100px] overflow-hidden bg-slate-100 ">
       <div className="p-2 flex flex-col justify-between h-full">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
@@ -32,12 +34,15 @@ export function StockInfoBox({
               {stockName}
             </h3>
           </div>
-          <p className={`text-xs font-semibold`} style={{ color: changeColor }}>
+          {/* <p className={`text-xs font-semibold`} style={{ color: changeColor }}>
             {changeIcon} {Math.abs(change).toFixed(2)}%
+          </p> */}
+          <p className={`text-xs font-semibold text-blue-600`} >
+            {quantity}
           </p>
         </div>
         <div className="flex items-end justify-between">
-          <p className="text-sm font-bold">${price.toFixed(2)}</p>
+          <p className="text-sm font-bold">{price}RWF</p>
           <div className="h-[30px] w-[80px] relative">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart
