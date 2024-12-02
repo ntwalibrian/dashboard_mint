@@ -5,6 +5,7 @@ const path = require("path");
 const db = require("./db/db")
 const stockMethods = require("./controllers/stockController")
 const authMethods = require("./controllers/authController")
+const {scheduleSnapshots} = require("./services/snapshotService")
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.post("/add_user", authMethods.addUser)
 app.post("/verify_user", authMethods.verifyUser)
 app.get("/get_portfolio/:id", stockMethods.getPortfolio)
 
+scheduleSnapshots();
 
 // const db = mysql.createConnection({
 //   host: "localhost",
