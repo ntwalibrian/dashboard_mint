@@ -18,15 +18,15 @@ const getLetterIcon = (str: string) => {
 function TopNavbar({ username }: Props) {
   return (
     <div
-      className="bg-white flex justify-end items-center px-6"
+      className="bg-white flex justify-end items-center px-6 p-3"
       style={{ height: "83.12px" }}
     >
       <button className="relative mr-6">
         <Bell className="w-6 h-6 text-gray-600" />
 
-        <span className="absolute top-0 right-0 bg-red-500 text-white text-xs font-bold w-4 h-4 rounded-full flex items-center justify-center">
+        {/* <span className="absolute top-0 right-0 bg-red-500 text-white text-xs font-bold w-4 h-4 rounded-full flex items-center justify-center">
           3
-        </span>
+        </span> */}
       </button>
 
       <div className="h-8 w-[1px] bg-gray-300 mx-6"></div>

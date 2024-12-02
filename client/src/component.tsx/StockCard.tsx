@@ -1,7 +1,5 @@
-import bkIcon from "../assets/bk_icon.jpg";
-import bralirwaIcon from "../assets/bralirwa_plc_logo.jpeg";
-import equityIcon from "../assets/Equity.png";
-import { StockInfoBox } from "./Stock_Info_Box";
+
+import { StockInfoCard } from "./Stock_Info_Box";
 interface Portfolio {
   quantity: number;
   price: number;
@@ -27,7 +25,7 @@ export default function StockCard({ portfolio }: StockCardProps) {
     <div className="p-4  ">
       <div className="flex flex-wrap gap-4 flex-row">
         {portfolio.map((item, index) => (
-          <StockInfoBox
+          <StockInfoCard
             key={index}
             stockName={item.company_name}
             logoSrc={item.logo}

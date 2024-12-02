@@ -6,6 +6,7 @@ import TopNavbar from "../component.tsx/Navbar";
 import "./Mustaaaaard.css";
 import StockCard from "../component.tsx/StockCard";
 import StockWatchlist from "../component.tsx/StockWishlist";
+import PortfolioChart from "@/component.tsx/Portfolio_chart";
 interface Portfolio {
   quantity: number;
   price: number;
@@ -57,17 +58,16 @@ function DashBoard() {
 
         <div className="flex-grow bg-[#f6f7f9] p-6">
           <h5 className="font-bold">My Portfolio</h5>
-          <div
-            className="bg-white rounded-lg"
-            // style={{
-            //   width: "890.02px",
-            //   height: "156.57px",
-            // }}
-          >
+          <div className="bg-white rounded-lg shadow-lg border border-gray-200  hover:shadow-xl transition-shadow">
             <StockCard portfolio={data} />
           </div>
-          <div className="mt-4">
-            <StockWatchlist />
+          <div className="mt-4 grid grid-cols-3 gap-6">
+            <div className="h-[500px] col-span-2">
+              <PortfolioChart/>
+            </div>
+            <div>
+              <StockWatchlist />
+            </div>
           </div>
         </div>
       </div>
