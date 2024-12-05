@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -15,21 +17,19 @@ const data = [
 
 const timeRanges = ['24h', '1W', '1M', '1Y', 'All'];
 
-export default function PortfolioChart({totalPortfolio} : {totalPortfolio ?: number}) {
+export default function StockChart({totalPortfolio} : {totalPortfolio: number}) {
   const [percentageChange, setPercentageChange] = React.useState(2.5);
   const [activeRange, setActiveRange] = React.useState('All');
 
   return (
-    <div 
-      className="w-[998.49px] h-[500px] max-w-full  mx-auto"
-    >
+    <div className="w-full h-[400px] mx-auto mb-6">
       <Card className="w-full h-full flex flex-col">
         <CardHeader className="flex-none">
           <div className="flex justify-between items-center">
-            <CardTitle className="text-2xl font-bold">Portfolio</CardTitle>
+            <CardTitle className="text-xl font-bold">Stock Performance</CardTitle>
             <div className="text-right">
               <div className="flex items-center justify-end">
-                <span className="text-2xl font-bold mr-2">RWF{totalPortfolio}</span>
+                <span className="text-xl font-bold mr-2">RWF {totalPortfolio.toLocaleString()}</span>
                 <span
                   className={`text-sm font-medium ${
                     percentageChange >= 0 ? 'text-green-600' : 'text-red-600'
@@ -96,3 +96,4 @@ export default function PortfolioChart({totalPortfolio} : {totalPortfolio ?: num
     </div>
   );
 }
+

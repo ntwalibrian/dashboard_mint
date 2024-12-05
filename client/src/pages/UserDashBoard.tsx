@@ -4,9 +4,11 @@ import { useParams, useLocation } from "react-router-dom";
 import Sidebar from "../component.tsx/Sidebar";
 import TopNavbar from "../component.tsx/Navbar";
 import "./Mustaaaaard.css";
-import StockCard from "../component.tsx/StockCard";
-import StockWatchlist from "../component.tsx/StockWishlist";
-import PortfolioChart from "@/component.tsx/Portfolio_chart";
+import HomeComponent from "./HomeComponent";
+import StocksComponent from "./StocksComponent";
+import CommunityComponent from "./CommunityComponent";
+import SettingsComponent from "./SettingsComponent";
+import ContactComponent from "./ContactComponent";
 interface Portfolio {
   quantity: number;
   price: number;
@@ -21,54 +23,60 @@ function DashBoard() {
   const [data, setData] = useState<Portfolio[]>([]);
   const location = useLocation();
   const user = location.state?.user;
+  const [activeItem, setActiveItem] = useState("home");
+  const [value, setValue] = useState<number>();
 
   useEffect(() => {
     axios
       .get(`/api/get_portfolio/${id}`)
       .then((res) => {
-        console.log(res);
         setData(res.data.rows);
-        console.log("data array bellow");
-        console.log(data);
-        console.log(res.data.rows);
       })
       .catch((err) => {
         console.error("Error fetching listings:", err);
       });
   }, [id]);
-  const [value, setValue] = useState<number>()
+
   useEffect(() => {
     setTimeout(() => {
-      console.log("after wait");
-      console.log(data);
       const calculateTotalValue = (portfolio: Portfolio[]): number => {
-        return portfolio.reduce((total, stock) => total + (stock.quantity * stock.price),0);
+        return portfolio.reduce((total, stock) => total + (stock.quantity * stock.price), 0);
       };
       const totalValue = calculateTotalValue(data);
-      console.log("total: ",totalValue)
-      setValue(totalValue)
+      setValue(totalValue);
     }, 8000);
-  });
+  }, [data]);
+
+  // Add a function to handle sidebar navigation
+  const handleNavigation = (item: string) => {
+    setActiveItem(item);
+  };
+
+  const renderComponent = () => {
+    switch (activeItem) {
+      case "home":
+      case "dashboard":
+        return <HomeComponent />;
+      case "stocks":
+        return <StocksComponent />;
+      case "community":
+        return <CommunityComponent />;
+      case "settings":
+        return <SettingsComponent />;
+      case "contact":
+        return <ContactComponent />;
+      default:
+        return <HomeComponent />; // Default to home instead of null
+    }
+  };
 
   return (
     <div className="flex h-screen">
-      <Sidebar totalPortfolio={value} />
+      <Sidebar totalPortfolio={value} onNavigate={handleNavigation} />
       <div className="flex flex-col flex-grow">
         <TopNavbar username={user.username} />
-
         <div className="flex-grow bg-[#f6f7f9] p-6">
-          <h5 className="font-bold">My Portfolio</h5>
-          <div className="bg-white rounded-lg shadow-lg border border-gray-200  hover:shadow-xl transition-shadow">
-            <StockCard portfolio={data} />
-          </div>
-          <div className="mt-4 grid grid-cols-3 gap-6">
-            <div className="h-[500px] col-span-2">
-              <PortfolioChart/>
-            </div>
-            <div>
-              <StockWatchlist />
-            </div>
-          </div>
+          {renderComponent()}
         </div>
       </div>
     </div>

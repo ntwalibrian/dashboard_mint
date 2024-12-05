@@ -2,7 +2,12 @@ import { useState } from "react";
 import { Home, BarChart2, Layers, Users, Settings, Phone } from "lucide-react";
 import { ChevronUp, Eye, EyeOff } from "lucide-react"; // Add required icons
 
-function Sidebar({totalPortfolio} : {totalPortfolio ?: number}) {
+interface SidebarProps {
+  totalPortfolio?: number;
+  onNavigate: (item: string) => void;
+}
+
+function Sidebar({totalPortfolio = 0, onNavigate} : SidebarProps) {
   const [activeItem, setActiveItem] = useState("home");
   const [showInvestments, setShowInvestments] = useState(true); // State to toggle visibility
 
@@ -62,7 +67,10 @@ function Sidebar({totalPortfolio} : {totalPortfolio ?: number}) {
           {menuItems.slice(0, 3).map((item) => (
             <button
               key={item.name}
-              onClick={() => setActiveItem(item.name)}
+              onClick={() => {
+                setActiveItem(item.name);
+                onNavigate(item.name);
+              }}
               className={`
                 flex items-center space-x-3 p-2 rounded-md transition-colors duration-200 w-full font-bold
                 ${
@@ -86,7 +94,10 @@ function Sidebar({totalPortfolio} : {totalPortfolio ?: number}) {
           {menuItems.slice(3).map((item) => (
             <button
               key={item.name}
-              onClick={() => setActiveItem(item.name)}
+              onClick={() => {
+                setActiveItem(item.name);
+                onNavigate(item.name);
+              }}
               className={`
                 flex items-center space-x-3 p-2 rounded-md transition-colors duration-200 w-full font-bold
                 ${
