@@ -6,6 +6,7 @@ const db = require("./db/db")
 const stockMethods = require("./controllers/stockController")
 const authMethods = require("./controllers/authController")
 const {scheduleSnapshots} = require("./services/snapshotService")
+const orderMethods = require("./controllers/orderControllers")
 
 const app = express();
 
@@ -23,6 +24,8 @@ app.delete("/delete_listing/:id", stockMethods.deleteListing)
 app.post("/add_user", authMethods.addUser)
 app.post("/verify_user", authMethods.verifyUser)
 app.get("/get_portfolio/:id", stockMethods.getPortfolio)
+app.post("/place_buy_order", orderMethods.postBuyOrder)
+app.post("/update_buy_order/:id", orderMethods.updateBuyOrder)
 
 scheduleSnapshots();
 
