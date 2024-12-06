@@ -32,7 +32,7 @@ export function StockItem({ symbol, name, price, change, logo, onClick }: StockI
             <p className="text-sm text-muted-foreground truncate">{name}</p>
           </div>
           <div className="flex-shrink-0 text-right">
-            <p className="text-sm font-medium">{price.toFixed(2)} RWF</p>
+            <p className="text-sm font-medium">{price} RWF</p>
             <p className={`text-xs flex items-center justify-end ${isPositive ? 'text-green-600' : 'text-red-600'}`}>
               {isPositive ? <ArrowUpIcon className="w-3 h-3 mr-1" /> : <ArrowDownIcon className="w-3 h-3 mr-1" />}
               {Math.abs(change).toFixed(2)}%

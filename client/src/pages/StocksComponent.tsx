@@ -4,11 +4,15 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { StockItem } from "@/component.tsx/Stocks-item"
 import { useState } from 'react'
 import { StockDetails } from "@/component.tsx/stocks-detail"
-import { rwandanStocks, StockData } from "@/data/Stock-data"
+import { StockData } from "@/data/Stock-data"
+import { useStockData } from "@/data/Stock-data"
 
 export default function StocksComponent() {
   const [selectedStock, setSelectedStock] = useState<StockData | null>(null)
+  const {data,loading, error} = useStockData()
 
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-3xl font-bold mb-6">
@@ -21,12 +25,12 @@ export default function StocksComponent() {
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
-            {rwandanStocks.map((stock) => (
+            {data.map((stock) => (
               <StockItem
                 key={stock.symbol}
                 symbol={stock.symbol}
-                name={stock.name}
-                price={stock.price}
+                name={stock.company_name}
+                price={stock.current_price}
                 change={stock.change}
                 logo={stock.logo}
                 onClick={() => setSelectedStock(stock)}

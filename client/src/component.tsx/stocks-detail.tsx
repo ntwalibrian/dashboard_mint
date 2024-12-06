@@ -20,7 +20,7 @@ interface StockDetailsProps {
 }
 
 export function StockDetails({ stock, isOpen, onClose }: StockDetailsProps) {
-  const { symbol, name, price, change } = stock
+  const { symbol, company_name, current_price, change } = stock
   const isPositive = change >= 0
 
   const formatCurrency = (value: number) => {
@@ -32,19 +32,19 @@ export function StockDetails({ stock, isOpen, onClose }: StockDetailsProps) {
       <DialogContent className="max-w-[90vw] max-h-[90vh] w-full overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="flex items-center space-x-2">
-            <StockAvatar symbol={symbol} name={name} />
-            <span>{name} ({symbol})</span>
+            <StockAvatar symbol={symbol} name={company_name} />
+            <span>{company_name} ({symbol})</span>
           </DialogTitle>
           <DialogDescription>
-            Detailed information about {name} stock
+            Detailed information about {company_name} stock
           </DialogDescription>
         </DialogHeader>
-        <StockChart totalPortfolio={stock.price * 1000} />
+        <StockChart totalPortfolio={stock.current_price * 1000} />
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-2 gap-4">
             <div>
               <h3 className="font-semibold mb-2">Stock Information</h3>
-              <p><span className="font-medium">Current Price:</span> {formatCurrency(price)}</p>
+              <p><span className="font-medium">Current Price:</span> {formatCurrency(current_price)}</p>
               <p className={`flex items-center ${isPositive ? 'text-green-600' : 'text-red-600'}`}>
                 <span className="font-medium text-foreground">Change:</span>
                 {isPositive ? <ArrowUpIcon className="w-4 h-4 mx-1" /> : <ArrowDownIcon className="w-4 h-4 mx-1" />}
