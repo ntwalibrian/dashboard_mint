@@ -9,6 +9,7 @@ import StocksComponent from "./StocksComponent";
 import CommunityComponent from "./CommunityComponent";
 import SettingsComponent from "./SettingsComponent";
 import ContactComponent from "./ContactComponent";
+import { RwandanP2PStockMarketplace } from "./Marketplace";
 interface Portfolio {
   quantity: number;
   price: number;
@@ -59,6 +60,8 @@ function DashBoard() {
         return <HomeComponent />;
       case "stocks":
         return <StocksComponent />;
+      case "marketplace":
+        return <RwandanP2PStockMarketplace />;
       case "community":
         return <CommunityComponent />;
       case "settings":
