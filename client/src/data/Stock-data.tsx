@@ -6,17 +6,29 @@ export interface StockData {
     company_name: string
     current_price: number
     change: number
+    marketCap: number
     ceo: string
-    founded: number
+    founded: string
     headquarters: string
     employees: number
-    marketCap: number
     revenue: number
     netIncome: number
-    industry: string
     description: string
+    industry: string
     website: string
-    logo: string
+    volume?: number
+    open_price?: number
+    high_price?: number
+    low_price?: number
+    previous_close?: number
+    pe_ratio?: number
+    dividend_yield?: number
+    market_status?: 'open' | 'closed'
+    sector?: string
+    exchange?: string
+    currency?: string
+    country?: string
+    last_updated?: string
   }
   
 
@@ -44,7 +56,7 @@ export const useStockData = () => {
             industry: item.industry || "dioufism",
             description: item.description || "diouf did didnt he",
             website: item.website || "https://www.bk.rw",
-            founded: item.founded || 1230,
+            founded: item.founded || "1230",
           }));
           setData(updatedData);
         }else {
