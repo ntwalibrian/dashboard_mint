@@ -4,7 +4,9 @@ import { useEffect, useState } from "react"
 export interface StockData {
     symbol: string
     company_name: string
+    id: number;
     current_price: number
+    logo: string
     change: number
     marketCap: number
     ceo: string

@@ -38,7 +38,7 @@ const StockWatchlist: React.FC = () => {
   useEffect(() => {
     axios.get("/api/get_listing")
     .then((res) => {
-      console.log(res.data);
+      // console.log(res.data);
       const stocks: StockListing[] = res.data.rows;
       const updatedWatchlist = stocks.map((listing) => ({
         id: listing.id,

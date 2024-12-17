@@ -60,6 +60,14 @@ exports.verifyUser = (req,res) => {
   })
 }
 
+exports.getBalance = (req,res) => {
+  const sql = 'SELECT balance FROM users WHERE id = $1'
+  const id = req.params.id
+  db1.query(sql, [id], (err, result) => {
+    if (err) return res.json({ message: "Error occurred: " + err });
+    return res.json(result)
+  })
+}
 
 // exports.addUser = (req, res) => {
 //   const sql =

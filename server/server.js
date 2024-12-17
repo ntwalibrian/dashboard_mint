@@ -26,6 +26,7 @@ app.post("/verify_user", authMethods.verifyUser)
 app.get("/get_portfolio/:id", stockMethods.getPortfolio)
 app.post("/place_buy_order", orderMethods.postBuyOrder)
 app.post("/update_buy_order/:id", orderMethods.updateBuyOrder)
+app.get("/get_balance/:id", authMethods.getBalance)
 
 scheduleSnapshots();
 

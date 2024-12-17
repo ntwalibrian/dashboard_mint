@@ -16,12 +16,13 @@ import StockChart from "./Stocks-chart";
 import { BuyStockPopup } from "./Buy-stock-popup";
 
 interface StockDetailsProps {
+  uid: '';
   stock: StockData;
   isOpen: boolean;
   onClose: () => void;
 }
 
-export function StockDetails({ stock, isOpen, onClose }: StockDetailsProps) {
+export function StockDetails({uid, stock, isOpen, onClose }: StockDetailsProps) {
   const [isBuyPopupOpen, setIsBuyPopupOpen] = useState(false);
   const { symbol, company_name, current_price, change } = stock;
   const isPositive = change >= 0;
@@ -154,6 +155,7 @@ export function StockDetails({ stock, isOpen, onClose }: StockDetailsProps) {
         </DialogContent>
       </Dialog>
       <BuyStockPopup
+        uid={uid}
         stock={stock}
         isOpen={isBuyPopupOpen}
         onClose={() => setIsBuyPopupOpen(false)}

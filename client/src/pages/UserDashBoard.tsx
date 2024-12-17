@@ -23,21 +23,35 @@ function DashBoard() {
   const { id } = useParams();
   const [data, setData] = useState<Portfolio[]>([]);
   const location = useLocation();
-  const user = location.state?.user;
+  const user = location.state.user;
   const [activeItem, setActiveItem] = useState("home");
   const [value, setValue] = useState<number>();
-
+  const [balance, setBalance] = useState()
   useEffect(() => {
     axios
       .get(`/api/get_portfolio/${id}`)
       .then((res) => {
         setData(res.data.rows);
+        
       })
       .catch((err) => {
         console.error("Error fetching listings:", err);
       });
   }, [id]);
-
+  useEffect(() => {
+    axios.get(`/api/get_balance/${id}`)
+      .then((res) => {
+        console.log('balance shit')
+        console.log(res)
+        setBalance(res.data.rows[0].balance)
+        
+        console.log(res.data.rows[0].balance)
+      })
+      .catch((err) => {
+        console.error("Error fetching listings:", err);
+      });
+    
+  },[id])
   useEffect(() => {
     setTimeout(() => {
       const calculateTotalValue = (portfolio: Portfolio[]): number => {
@@ -45,7 +59,8 @@ function DashBoard() {
       };
       const totalValue = calculateTotalValue(data);
       setValue(totalValue);
-    }, 8000);
+      
+    }, 1000);
   }, [data]);
 
   // Add a function to handle sidebar navigation
@@ -59,7 +74,7 @@ function DashBoard() {
       case "dashboard":
         return <HomeComponent />;
       case "stocks":
-        return <StocksComponent />;
+        return <StocksComponent uid = {user.id} />;
       case "marketplace":
         return <RwandanP2PStockMarketplace />;
       case "community":
@@ -75,7 +90,7 @@ function DashBoard() {
 
   return (
     <div className="flex h-screen">
-      <Sidebar totalPortfolio={value} onNavigate={handleNavigation} />
+      <Sidebar totalPortfolio={value} balance={balance} onNavigate={handleNavigation} />
       <div className="flex flex-col flex-grow">
         <TopNavbar username={user.username} />
         <div className="flex-grow bg-[#f6f7f9] p-6">

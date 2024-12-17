@@ -7,7 +7,9 @@ import { StockDetails } from "@/component.tsx/stocks-detail"
 import { StockData } from "@/data/Stock-data"
 import { useStockData } from "@/data/Stock-data"
 
-export default function StocksComponent() {
+interface StocksComponentProps { uid: '';}
+
+export default function StocksComponent({uid} : StocksComponentProps) {
   const [selectedStock, setSelectedStock] = useState<StockData | null>(null)
   const {data,loading, error} = useStockData()
 
@@ -41,6 +43,7 @@ export default function StocksComponent() {
       </Card>
       {selectedStock && (
         <StockDetails
+          uid = {uid}
           stock={selectedStock}
           isOpen={!!selectedStock}
           onClose={() => setSelectedStock(null)}
