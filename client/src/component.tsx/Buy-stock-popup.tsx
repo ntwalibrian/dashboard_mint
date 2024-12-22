@@ -46,15 +46,9 @@ export function BuyStockPopup({
       limit_price: current_price,
     });
 
-    
     console.log(uid);
     console.log(values);
-
-    
     console.log(`Buying ${quantity} shares of ${symbol}`);
-    onClose();
-  };
-  useEffect(() => {
     if (
       values.user_id &&
       values.stock_id &&
@@ -68,13 +62,32 @@ export function BuyStockPopup({
           console.log(res);
         })
         .catch((err) => {
-          console.log(values);
           console.log(err);
         });
-      console.log(`Buyingdt ${quantity} shares of ${symbol}`);
-      onClose();
     }
-  }, [values]);
+
+    onClose();
+  };
+  // useEffect(() => {
+  //   if (
+  //     values.user_id &&
+  //     values.stock_id &&
+  //     values.quantity &&
+  //     values.limit_price
+  //   ) {
+  //     axios
+  //       .post("/api/place_buy_order", values)
+  //       .then((res) => {
+  //         console.log(values);
+  //         console.log(res);
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //     console.log(`Buyingdt ${quantity} shares of ${symbol}`);
+  //     onClose();
+  //   }
+  // }, [values]);
 
   const formatCurrency = (value: number): string => {
     try {

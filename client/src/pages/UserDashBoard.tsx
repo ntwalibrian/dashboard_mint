@@ -10,34 +10,19 @@ import CommunityComponent from "./CommunityComponent";
 import SettingsComponent from "./SettingsComponent";
 import ContactComponent from "./ContactComponent";
 import { RwandanP2PStockMarketplace } from "./Marketplace";
-interface Portfolio {
-  quantity: number;
-  price: number;
-  symbol: string;
-  company_name: string;
-  total_supply: number;
-  current_price: number;
-  logo: string;
-}
+import usePortfolio from "@/hooks/usePortfolio";
+
 function DashBoard() {
   const { id } = useParams();
-  const [data, setData] = useState<Portfolio[]>([]);
+  
   const location = useLocation();
   const user = location.state.user;
   const [activeItem, setActiveItem] = useState("home");
-  const [value, setValue] = useState<number>();
+  
   const [balance, setBalance] = useState()
-  useEffect(() => {
-    axios
-      .get(`/api/get_portfolio/${id}`)
-      .then((res) => {
-        setData(res.data.rows);
-        
-      })
-      .catch((err) => {
-        console.error("Error fetching listings:", err);
-      });
-  }, [id]);
+
+  const {totalValue, fetchPortfolio} = usePortfolio(user.id)
+
   useEffect(() => {
     axios.get(`/api/get_balance/${id}`)
       .then((res) => {
@@ -52,16 +37,6 @@ function DashBoard() {
       });
     
   },[id])
-  useEffect(() => {
-    setTimeout(() => {
-      const calculateTotalValue = (portfolio: Portfolio[]): number => {
-        return portfolio.reduce((total, stock) => total + (stock.quantity * stock.price), 0);
-      };
-      const totalValue = calculateTotalValue(data);
-      setValue(totalValue);
-      
-    }, 1000);
-  }, [data]);
 
   // Add a function to handle sidebar navigation
   const handleNavigation = (item: string) => {
@@ -72,7 +47,7 @@ function DashBoard() {
     switch (activeItem) {
       case "home":
       case "dashboard":
-        return <HomeComponent />;
+        return <HomeComponent user_id={user.id} />;
       case "stocks":
         return <StocksComponent uid = {user.id} />;
       case "marketplace":
@@ -84,13 +59,13 @@ function DashBoard() {
       case "contact":
         return <ContactComponent />;
       default:
-        return <HomeComponent />; // Default to home instead of null
+        return <HomeComponent user_id={user.id} />; // Default to home instead of null
     }
   };
 
   return (
     <div className="flex h-screen">
-      <Sidebar totalPortfolio={value} balance={balance} onNavigate={handleNavigation} />
+      <Sidebar totalPortfolio={totalValue} balance={balance} onNavigate={handleNavigation} />
       <div className="flex flex-col flex-grow">
         <TopNavbar username={user.username} />
         <div className="flex-grow bg-[#f6f7f9] p-6">
