@@ -22,7 +22,7 @@ const useListings = () => {
       })
       .catch((err) => {
         if (err instanceof CanceledError) return;
-        setError(err);
+        setError(err.message);
       });
     return () => Controller.abort();
   }, []);

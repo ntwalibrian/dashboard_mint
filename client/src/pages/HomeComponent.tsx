@@ -8,7 +8,7 @@ interface Props {
   user_id: number;
 }
 function HomeComponent({ user_id }: Props) {
-  const { portfolio, error, fetchPortfolio } = usePortfolio(user_id);
+  const { portfolio, error } = usePortfolio(user_id);
 
   if (error) {
     return <p>portfolio fetching error : {error}</p>;

@@ -11,6 +11,7 @@ import SettingsComponent from "./SettingsComponent";
 import ContactComponent from "./ContactComponent";
 import { RwandanP2PStockMarketplace } from "./Marketplace";
 import usePortfolio from "@/hooks/usePortfolio";
+import useBalance from "@/hooks/useBalance";
 
 function DashBoard() {
   const { id } = useParams();
@@ -19,24 +20,24 @@ function DashBoard() {
   const user = location.state.user;
   const [activeItem, setActiveItem] = useState("home");
   
-  const [balance, setBalance] = useState()
+  // const [balance, setBalance] = useState()
 
   const {totalValue, fetchPortfolio} = usePortfolio(user.id)
-
-  useEffect(() => {
-    axios.get(`/api/get_balance/${id}`)
-      .then((res) => {
-        console.log('balance shit')
-        console.log(res)
-        setBalance(res.data.rows[0].balance)
+  const {balance, error, fetchBalance} = useBalance(user.id)
+  // useEffect(() => {
+  //   axios.get(`/api/get_balance/${id}`)
+  //     .then((res) => {
+  //       console.log('balance shit')
+  //       console.log(res)
+  //       setBalance(res.data.rows[0].balance)
         
-        console.log(res.data.rows[0].balance)
-      })
-      .catch((err) => {
-        console.error("Error fetching listings:", err);
-      });
+  //       console.log(res.data.rows[0].balance)
+  //     })
+  //     .catch((err) => {
+  //       console.error("Error fetching listings:", err);
+  //     });
     
-  },[id])
+  // },[id])
 
   // Add a function to handle sidebar navigation
   const handleNavigation = (item: string) => {

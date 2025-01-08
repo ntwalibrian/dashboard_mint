@@ -13,7 +13,7 @@ interface StockWatchlistItem {
 const StockWatchlist: React.FC = () => {
   const [watchlist, setWatchlist] = useState<StockWatchlistItem[]>([]);
 
-  const { listings, error, fetchListings } = useListings();
+  const { listings, error } = useListings();
   useEffect(() => {
     const updatedWatchlist = listings.map((listing) => ({
       id: listing.id,
@@ -23,7 +23,7 @@ const StockWatchlist: React.FC = () => {
       change: 0.0,
     }));
     setWatchlist(updatedWatchlist);
-  },[]);
+  },[listings]);
 
   if (error) {
     return <p>listing fetching error: {error}</p>;
