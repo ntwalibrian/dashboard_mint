@@ -1,4 +1,5 @@
 const db1 = require("../db/db");
+const processPendingBuyOrders = require("../services/transactBuyOrder")
 
 exports.postBuyOrder = async (req, res) => {
   try {
@@ -20,6 +21,8 @@ exports.postBuyOrder = async (req, res) => {
         req.body.limit_price,
       ];
       const results = await db1.query(sql, values);
+      await processPendingBuyOrders.processPendingBuyOrders()
+
       res
         .status(201)
         .json({ success: "Successfully added listing", order: results.rows[0] });

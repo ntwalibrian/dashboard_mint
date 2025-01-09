@@ -10,10 +10,11 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import axios from "axios";
+
 import { StockData } from "@/data/Stock-data";
-import { useEffect } from "react";
+
 import useBuyStock from "@/hooks/useBuyStock";
+import useBalance from "@/hooks/useBalance";
 
 interface BuyStockPopupProps {
   uid: "";
@@ -37,8 +38,9 @@ export function BuyStockPopup({
   const [quantity, setQuantity] = useState(1);
   const { id, symbol, company_name, current_price } = stock;
   // const { uid } = useParams();
+  const {fetchBalance} = useBalance(uid)
 
-  const { loading, error, buyStock } = useBuyStock();
+  const { loading, error,success, buyStock } = useBuyStock();
   const handleBuy = () => {
     const values: BuyValues = {
       user_id: uid,
@@ -61,7 +63,7 @@ export function BuyStockPopup({
       return;
     }
     buyStock(values);
-
+    fetchBalance()
     onClose();
   };
 
@@ -80,6 +82,7 @@ export function BuyStockPopup({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
+
       <DialogContent>
         <DialogHeader>
           <DialogTitle>

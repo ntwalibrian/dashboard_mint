@@ -8,6 +8,7 @@ interface SidebarProps {
   totalPortfolio?: number;
   balance?: number;
   onNavigate: (item: string) => void;
+  
 }
 
 function Sidebar({totalPortfolio = 0, balance = 0, onNavigate} : SidebarProps) {

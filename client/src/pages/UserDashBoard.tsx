@@ -20,26 +20,11 @@ function DashBoard() {
   const user = location.state.user;
   const [activeItem, setActiveItem] = useState("home");
   
-  // const [balance, setBalance] = useState()
+  
 
   const {totalValue, fetchPortfolio} = usePortfolio(user.id)
   const {balance, error, fetchBalance} = useBalance(user.id)
-  // useEffect(() => {
-  //   axios.get(`/api/get_balance/${id}`)
-  //     .then((res) => {
-  //       console.log('balance shit')
-  //       console.log(res)
-  //       setBalance(res.data.rows[0].balance)
-        
-  //       console.log(res.data.rows[0].balance)
-  //     })
-  //     .catch((err) => {
-  //       console.error("Error fetching listings:", err);
-  //     });
-    
-  // },[id])
 
-  // Add a function to handle sidebar navigation
   const handleNavigation = (item: string) => {
     setActiveItem(item);
   };
@@ -66,7 +51,7 @@ function DashBoard() {
 
   return (
     <div className="flex h-screen">
-      <Sidebar totalPortfolio={totalValue} balance={balance} onNavigate={handleNavigation} />
+      <Sidebar totalPortfolio={totalValue} balance={balance}  onNavigate={handleNavigation} />
       <div className="flex flex-col flex-grow">
         <TopNavbar username={user.username} />
         <div className="flex-grow bg-[#f6f7f9] p-6">

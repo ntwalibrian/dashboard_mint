@@ -11,12 +11,16 @@ interface BuyStockValues {
 const useBuyStock = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState("");
 
   const buyStock = async (values: BuyStockValues) => {
     setLoading(true);
+    setError("");
+    setSuccess("")
     try {
       const responce = await axios.post("/api/place_buy_order", values);
       setLoading(false);
+      setSuccess("Stock purchase was successful!");
       return responce.data;
     } catch (err) {
       setLoading(false);
@@ -26,7 +30,7 @@ const useBuyStock = () => {
     }
   };
 
-  return {buyStock, error, loading}
+  return {buyStock, error, loading, success}
 };
 
 export default useBuyStock;

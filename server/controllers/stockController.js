@@ -65,16 +65,16 @@ exports.getListingById = (req, res) => {
   const id = req.params.id;
   const sql = "SELECT * FROM stocks WHERE id = $1";
 
-  db1.query(sql, [id], (err, result) => {
+  db1.query(sql, [id], (err, results) => {
     if (err) {
       return res.status(500).json({ message: "Error occurred: " + err });
     }
 
-    if (result.rows.length === 0) {
+    if (results.rows.length === 0) {
       return res.status(404).json({ message: "Listing not found" });
     }
 
-    return res.json(result.rows[0]);
+    return res.json(results.rows[0]);
   });
 };
 

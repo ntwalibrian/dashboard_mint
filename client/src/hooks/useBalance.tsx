@@ -2,7 +2,7 @@ import { CanceledError } from "axios";
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 
-const useBalance = (user_id: number) => {
+const useBalance = (user_id: string) => {
   const [balance, setBalance] = useState();
   const [error, setError] = useState("");
 
