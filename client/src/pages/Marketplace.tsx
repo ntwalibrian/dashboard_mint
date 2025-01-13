@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useMemo, useCallback } from "react"
-import { FiTrendingUp, FiDollarSign, FiPlusCircle, FiUser, FiAlertTriangle, FiStar, FiShoppingCart } from 'react-icons/fi'
+import { FiTrendingUp, FiDollarSign, FiPlusCircle, FiUser, FiAlertTriangle, FiStar, FiShoppingCart, FiCheck } from 'react-icons/fi'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Button } from "@/components/ui/button"
 import {
@@ -107,11 +107,11 @@ function useMarketplace() {
     setBuyOrders(prev => [...prev, newOrder])
   }, [])
 
-  return { listings, userHoldings, buyOrders, addListing, removeListing, updateHoldings, addBuyOrder }
+  return { listings, userHoldings, buyOrders, addListing, removeListing, updateHoldings, addBuyOrder, setBuyOrders }
 }
 
 export function RwandanP2PStockMarketplace() {
-  const { listings, userHoldings, buyOrders, addListing, removeListing, updateHoldings, addBuyOrder } = useMarketplace()
+  const { listings, userHoldings, buyOrders, addListing, removeListing, updateHoldings, addBuyOrder, setBuyOrders } = useMarketplace()
   const [selectedStock, setSelectedStock] = useState<UserHolding | null>(null)
   const [listQuantity, setListQuantity] = useState(1)
   const [listPrice, setListPrice] = useState(0)
@@ -252,6 +252,40 @@ export function RwandanP2PStockMarketplace() {
     }
   }
 
+  const handleSatisfyBuyOrder = (order: BuyOrder) => {
+    // Check if the user has enough stocks to satisfy the order
+    const userStock = userHoldings.find(holding => holding.symbol === order.symbol);
+    if (!userStock || userStock.quantity < order.quantity) {
+      toast({
+        title: "Insufficient Stock",
+        description: `You don't have enough ${order.symbol} stocks to satisfy this order.`,
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Remove the buy order
+    setBuyOrders(prev => prev.filter(o => o !== order));
+
+    // Update user holdings
+    updateHoldings(order.symbol, -order.quantity);
+
+    // Add a new listing for the sold stocks
+    const newListing: StockListing = {
+      symbol: order.symbol,
+      name: order.name,
+      price: order.price,
+      quantity: order.quantity,
+      seller: 'Current User',
+    };
+    addListing(newListing);
+
+    toast({
+      title: "Order Satisfied",
+      description: `You've successfully sold ${order.quantity} shares of ${order.symbol} at ${order.price} RWF each.`,
+    });
+  };
+
   return (
     <div className="container mx-auto py-10 px-4">
       <motion.h1 
@@ -278,9 +312,8 @@ export function RwandanP2PStockMarketplace() {
       </motion.div>
 
       <Tabs defaultValue="market" className="mb-12">
-        <TabsList className="grid w-full grid-cols-3">
+        <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="market">Market</TabsTrigger>
-          <TabsTrigger value="portfolio">My Portfolio</TabsTrigger>
           <TabsTrigger value="orders">My Orders</TabsTrigger>
         </TabsList>
         <TabsContent value="market">
@@ -559,15 +592,13 @@ export function RwandanP2PStockMarketplace() {
               </Table>
             </CardContent>
           </Card>
-        </TabsContent>
-        <TabsContent value="portfolio">
-          <Card>
+          <Card className="mt-8">
             <CardHeader>
               <CardTitle className="flex items-center">
-                <FiUser className="mr-2" />
-                My Portfolio
+                <FiCheck className="mr-2" />
+                Satisfy Buyer Orders
               </CardTitle>
-              <CardDescription>Your current Rwandan stock holdings</CardDescription>
+              <CardDescription>Fulfill open buy orders from other users</CardDescription>
             </CardHeader>
             <CardContent>
               <Table>
@@ -576,29 +607,28 @@ export function RwandanP2PStockMarketplace() {
                     <TableHead>Symbol</TableHead>
                     <TableHead>Name</TableHead>
                     <TableHead>Quantity</TableHead>
-                    <TableHead>Current Price (RWF)</TableHead>
+                    <TableHead>Price (RWF)</TableHead>
                     <TableHead>Total Value (RWF)</TableHead>
-                    <TableHead>Performance</TableHead>
+                    <TableHead>Action</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {userHoldings.map((holding, index) => (
+                  {buyOrders.map((order, index) => (
                     <motion.tr
-                      key={holding.symbol}
+                      key={`${order.symbol}-${order.buyer}-${index}`}
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.3, delay: index * 0.1 }}
                     >
-                      <TableCell className="font-medium">{holding.symbol}</TableCell>
-                      <TableCell>{holding.name}</TableCell>
-                      <TableCell>{holding.quantity}</TableCell>
-                      <TableCell>{holding.currentPrice.toFixed(2)}</TableCell>
-                      <TableCell>{(holding.quantity * holding.currentPrice).toFixed(2)}</TableCell>
+                      <TableCell className="font-medium">{order.symbol}</TableCell>
+                      <TableCell>{order.name}</TableCell>
+                      <TableCell>{order.quantity}</TableCell>
+                      <TableCell>{order.price.toFixed(2)}</TableCell>
+                      <TableCell>{(order.quantity * order.price).toFixed(2)}</TableCell>
                       <TableCell>
-                        <div className="flex items-center">
-                          <FiStar className="text-yellow-400 mr-1" />
-                          <span>{(Math.random() * 10).toFixed(2)}%</span>
-                        </div>
+                        <Button onClick={() => handleSatisfyBuyOrder(order)}>
+                          Satisfy Order
+                        </Button>
                       </TableCell>
                     </motion.tr>
                   ))}
@@ -655,7 +685,6 @@ export function RwandanP2PStockMarketplace() {
         </TabsContent>
       </Tabs>
       <Toaster />
-      
     </div>
   )
 }
