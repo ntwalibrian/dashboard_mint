@@ -9,7 +9,7 @@ import StocksComponent from "./StocksComponent";
 import CommunityComponent from "./CommunityComponent";
 import SettingsComponent from "./SettingsComponent";
 import ContactComponent from "./ContactComponent";
-import { RwandanP2PStockMarketplace } from "./Marketplace";
+import Marketplace from "./Marketplace";
 import usePortfolio from "@/hooks/usePortfolio";
 import useBalance from "@/hooks/useBalance";
 
@@ -37,7 +37,7 @@ function DashBoard() {
       case "stocks":
         return <StocksComponent uid = {user.id} />;
       case "marketplace":
-        return <RwandanP2PStockMarketplace />;
+        return <Marketplace user_id={user.id}/>;
       case "community":
         return <CommunityComponent />;
       case "settings":
