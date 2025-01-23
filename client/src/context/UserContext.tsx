@@ -1,12 +1,16 @@
 import { createContext, ReactNode, useContext, useState } from "react";
 
 interface UserContextType {
-  user: User | null;
+  user: User;
   login: (userData: User, token: string) => void;
   logout: () => void;
 }
 
-const UserContext = createContext<UserContextType | null>(null);
+const UserContext = createContext<UserContextType>({
+  user: { id: 0, username: "" },
+  login: () => {},
+  logout: () => {},
+});
 
 interface User {
   id: number;
@@ -14,20 +18,20 @@ interface User {
 }
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<User | null>(() => {
-    const storedUser = localStorage.getItem('user');
-    return storedUser ? JSON.parse(storedUser) : null;
+  const [user, setUser] = useState<User>(() => {
+    const storedUser = localStorage.getItem("user");
+    return storedUser ? JSON.parse(storedUser) : { id: 0, username: "" };
   });
 
   const login = (userData: User, token: string) => {
     setUser(userData);
-    localStorage.setItem('user', JSON.stringify(userData));
+    localStorage.setItem("user", JSON.stringify(userData));
     localStorage.setItem("token", token);
   };
 
   const logout = () => {
-    setUser(null);
-    localStorage.removeItem('user');
+    setUser({ id: 0, username: "" });
+    localStorage.removeItem("user");
     localStorage.removeItem("token");
   };
 

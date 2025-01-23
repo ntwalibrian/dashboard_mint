@@ -6,8 +6,7 @@ export const ProtectedRoute = ({ children }: { children: ReactNode }) => {
   const { user } = useUser();
   const location = useLocation();
 
-  if (!user) {
-    
+  if (user.id === 0 && user.username === "") {
     return <Navigate to="/login" state={{ from: location.pathname }} replace />;
   }
 

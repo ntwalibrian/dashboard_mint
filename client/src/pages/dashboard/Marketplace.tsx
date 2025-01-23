@@ -5,8 +5,8 @@ function Marketplace() {
   return (
     <div>
       sidebar
-      {user?.id && <p>user id is {user.id}</p>}
-      {user?.username && <p>user name is {user.username}</p>}
+      {user.id}
+      {user.username}
     </div>
   );
 }
