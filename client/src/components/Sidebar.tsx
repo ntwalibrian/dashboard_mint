@@ -2,6 +2,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import NavLinks from "./NavLinks";
 import { useUser } from "../context/UserContext";
+import { LogOut } from "lucide-react";
 
 function Sidebar() {
   const { logout } = useUser();
@@ -22,6 +23,7 @@ function Sidebar() {
           className="flex h-10 bg-slate-300 hover:bg-red-300 items-center justify-start rounded-md p-3 font-medium hover:text-red-500"
           onClick={() => logout()}
         >
+          <LogOut size={20} className="mr-2"/>
           Log Out
         </Link>
       </div>
