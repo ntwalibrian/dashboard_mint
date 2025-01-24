@@ -5,10 +5,14 @@ function NavLinks() {
   return (
     <>
       {navlinks.map((link, index) => {
+        const Icon = link.icon;
         return (
-          <Link key={index} to={link.href}
-            className="flex h-10  hover:bg-sky-100 items-center justify-start rounded-md p-3 font-medium hover:text-blue-500"
+          <Link
+            key={index}
+            to={link.href}
+            className="flex h-10 hover:bg-sky-100 items-center justify-start rounded-md p-3 font-medium hover:text-blue-500 gap-2"
           >
+            {Icon && <Icon size={20} />}
             {link.name}
           </Link>
         );
