@@ -7,12 +7,12 @@ function Dashboard() {
         <Sidebar/>
       </div>
       
-      <div className="w-full grid grid-rows-[100px,1fr]">
+      <div className="w-full grid grid-rows-[80px,1fr]">
         <div className="border-b-2 w-full border-slate-300">
           {/* ntushaka kuyigira always on top uzambwire */}
           <Navbar />
         </div>
-        <div>blu here main Dashboard</div>
+        <div className="p-4">blu here main Dashboard</div>
       </div>
     </div>
   )
