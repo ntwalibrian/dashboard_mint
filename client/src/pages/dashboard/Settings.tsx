@@ -7,7 +7,7 @@ function Settings() {
       <div className="hidden md:flex md:flex-col border-r-2 border-blue-500 h-screen">
         <Sidebar />
       </div>
-      <div className="w-full grid grid-rows-[130px,1fr]">
+      <div className="w-full grid grid-rows-[100px,1fr]">
         <div className="border-b-2 w-full border-green-400">
           {/* ntushaka kuyigira always on top uzambwire */}
           <Navbar />
