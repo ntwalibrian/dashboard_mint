@@ -1,9 +1,11 @@
-import React from 'react'
-
+import Sidebar from "../../components/Sidebar";
 function Dashboard() {
   return (
-    <div>
-      navbar sidebar 
+    <div className="w-full grid grid-cols-1 md:grid-cols-[200px,1fr] ">
+      <div className="hidden md:flex md:flex-col border-r-2 border-blue-500 h-screen">
+        <Sidebar/>
+      </div>
+      <div>here main Dashboard </div>
     </div>
   )
 }

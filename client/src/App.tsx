@@ -7,6 +7,7 @@ import Settings from "./pages/dashboard/Settings";
 import Marketplace from "./pages/dashboard/Marketplace";
 import { ProtectedRoute } from "./context/ProtectedRoute";
 import { UserProvider } from "./context/UserContext";
+import Dashboard from "./pages/dashboard/Dashboard";
 
 function App() {
   return (
@@ -23,6 +24,16 @@ function App() {
           }
         />
         <Route path="/signup" element={<Signup />} />
+        <Route
+          path="/dashboard"
+          element={
+            <UserProvider>
+              <ProtectedRoute>
+                <Dashboard/>
+              </ProtectedRoute>
+            </UserProvider>
+          }
+        />
         <Route
           path="/dashboard/stocks"
           element={

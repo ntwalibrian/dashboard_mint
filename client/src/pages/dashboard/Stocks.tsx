@@ -1,12 +1,15 @@
-
+import Sidebar from "../../components/Sidebar";
 
 function Stocks() {
   
   return (
-    <div>
-      
+    <div className="w-full grid grid-cols-1 md:grid-cols-[200px,1fr] ">
+      <div className="hidden md:flex md:flex-col border-r-2 border-blue-500 h-screen">
+        <Sidebar/>
+      </div>
+      <div>stocks here </div>
     </div>
-  )
+  );
 }
 
 export default Stocks

@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html{
     font-family: "Lexend Giga", serif;
     font-optical-sizing: auto;
