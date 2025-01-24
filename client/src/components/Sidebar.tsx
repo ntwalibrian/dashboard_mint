@@ -20,7 +20,7 @@ function Sidebar() {
         <div className="flex grow"></div>
         <Link
           to={"#"}
-          className="flex h-10 bg-slate-300 hover:bg-red-300 items-center justify-start rounded-md p-3 font-medium hover:text-red-500"
+          className="flex h-10  hover:bg-red-300 items-center justify-start rounded-md p-3 font-medium hover:text-red-500"
           onClick={() => logout()}
         >
           <LogOut size={20} className="mr-2"/>
