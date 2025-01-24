@@ -7,7 +7,7 @@ function NavLinks() {
       {navlinks.map((link, index) => {
         return (
           <Link key={index} to={link.href}
-            className="flex h-10 bg-slate-300 hover:bg-sky-100 items-center justify-start rounded-md p-3 font-medium hover:text-blue-500"
+            className="flex h-10  hover:bg-sky-100 items-center justify-start rounded-md p-3 font-medium hover:text-blue-500"
           >
             {link.name}
           </Link>
