@@ -10,7 +10,7 @@ function Sidebar() {
   return (
     <div className="h-screen w-full px-2 py-3 flex flex-col">
       <div
-        className="w-full rounded-md bg-slate-400 h-28 cursor-pointer mb-5 flex justify-center items-center "
+        className="w-full rounded-md bg-primary h-28 cursor-pointer mb-5 flex justify-center items-center "
         onClick={() => navigate("/dashboard")}
       >
         logo"?"
