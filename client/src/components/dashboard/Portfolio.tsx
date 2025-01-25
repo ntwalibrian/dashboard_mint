@@ -1,5 +1,8 @@
 // ibi ni filler ntusare
 
+import { useUser } from "../../context/UserContext";
+import UsePortfolio from "../../hooks/UsePortfolio";
+
 interface Portfolio {
   quantity: number;
   price: number;
@@ -8,6 +11,7 @@ interface Portfolio {
   total_supply: number;
   current_price: number;
   logo: string;
+  holding_id: string;
 }
 
 const Avatar = ({
@@ -27,7 +31,8 @@ const Avatar = ({
   />
 );
 
-function StockCard() {
+function StockCard({Portfolio} : {Portfolio : Portfolio}) {
+  
   return (
     <div
       className="min-w-[180px] h-[180px] bg-white rounded-xl shadow-sm border border-gray-100 
@@ -37,22 +42,22 @@ function StockCard() {
       <div className="flex flex-col h-full justify-between">
         <div className="flex items-center space-x-3">
           <Avatar
-            src="https://api.dicebear.com/7.x/initials/svg?seed=JD"
-            alt="Stock Logo"
+            src={Portfolio.logo}
+            alt={Portfolio.symbol}
             size={32}
           />
           <div>
-            <h3 className="text-sm font-semibold text-gray-900">AAPL</h3>
-            <p className="text-xs text-gray-500">Apple Inc.</p>
+            <h3 className="text-sm font-semibold text-gray-900">{Portfolio.symbol}</h3>
+            <p className="text-xs text-gray-500">{Portfolio.company_name}</p>
           </div>
         </div>
 
         <div>
           <div className="flex justify-between items-baseline mb-1">
-            <p className="text-lg font-bold text-gray-900">1000 RWF</p>
+            <p className="text-lg font-bold text-gray-900">{Portfolio.price}RWF</p>
             <span className="text-xs font-medium text-green-600">+2.4%</span>
           </div>
-          <p className="text-xs text-gray-500">100 shares</p>
+          <p className="text-xs text-gray-500">{Portfolio.quantity} shares</p>
         </div>
       </div>
     </div>
@@ -60,6 +65,11 @@ function StockCard() {
 }
 
 export default function Portfolio() {
+
+  const {user} = useUser()
+  const { portfolio } = UsePortfolio(user.id)
+  
+
   return (
     <div className="max-w-full">
       <h2 className="text-xl font-bold text-gray-900 mb-2">My Portfolio</h2>
@@ -68,9 +78,12 @@ export default function Portfolio() {
       </p>
       <div className="max-w-full overflow-x-auto">
         <div className="flex gap-4 pb-4">
-          {[1, 2, 3, 4].map((_, index) => (
+          {/* {[1, 2, 3, 4].map((_, index) => (
             <StockCard key={index} />
-          ))}
+          ))} */}
+          {portfolio.map((item,index) => {
+            return <StockCard key={index} Portfolio={item}/>
+          })}
         </div>
       </div>
     </div>
