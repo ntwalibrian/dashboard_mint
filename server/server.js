@@ -3,7 +3,7 @@ const cors = require("cors");
 const path = require("path");
 const authControllers = require("./controllers/authControllers");
 const stockControllers = require("./controllers/stockControllers");
-
+const orderControllers = require("./controllers/orderControllers")
 
 const app = express();
 app.use(express.static(path.join(__dirname, "public")));   
@@ -19,6 +19,7 @@ app.get("/api/users", authControllers.getUsers);
 app.post("/verify_user", authControllers.validateUser)
 app.post("/get_portfolio", stockControllers.get_portfolio)
 app.get("/get_listings",stockControllers.get_listings)
+app.post("/post_direct_buy", orderControllers.postDirectBuy)
 
 
 app.listen(8080, () => {

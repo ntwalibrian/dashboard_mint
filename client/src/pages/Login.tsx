@@ -30,7 +30,7 @@ function Login() {
       }
       console.log("nice being redirected in 3s");
       setTimeout(() => {
-        navigate(`/dashboard/marketplace`);
+        navigate(`/dashboard`);
       }, 3000);
     } catch (err: any) {
       setError(
