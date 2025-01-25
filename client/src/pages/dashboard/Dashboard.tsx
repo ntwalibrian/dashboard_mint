@@ -3,6 +3,7 @@ import Navbar from "../../components/Navbar";
 import Portfolio from "../../components/dashboard/Portfolio";
 import UsePortfolio from "../../hooks/UsePortfolio";
 import { useUser } from "../../context/UserContext";
+import Balance from "../../components/dashboard/Balance";
 function Dashboard() {
   const {user} =useUser()
   const {portfolio} = UsePortfolio(user.id)
@@ -21,6 +22,7 @@ function Dashboard() {
         
           <Portfolio />
         </div>
+        
       </div>
     </div>
   );

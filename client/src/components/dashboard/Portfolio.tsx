@@ -31,8 +31,7 @@ const Avatar = ({
   />
 );
 
-function StockCard({Portfolio} : {Portfolio : Portfolio}) {
-  
+function StockCard({ Portfolio }: { Portfolio: Portfolio }) {
   return (
     <div
       className="min-w-[180px] h-[180px] bg-white rounded-xl shadow-sm border border-gray-100 
@@ -41,20 +40,20 @@ function StockCard({Portfolio} : {Portfolio : Portfolio}) {
     >
       <div className="flex flex-col h-full justify-between">
         <div className="flex items-center space-x-3">
-          <Avatar
-            src={Portfolio.logo}
-            alt={Portfolio.symbol}
-            size={32}
-          />
+          <Avatar src={Portfolio.logo} alt={Portfolio.symbol} size={32} />
           <div>
-            <h3 className="text-sm font-semibold text-gray-900">{Portfolio.symbol}</h3>
+            <h3 className="text-sm font-semibold text-gray-900">
+              {Portfolio.symbol}
+            </h3>
             <p className="text-xs text-gray-500">{Portfolio.company_name}</p>
           </div>
         </div>
 
         <div>
           <div className="flex justify-between items-baseline mb-1">
-            <p className="text-lg font-bold text-gray-900">{Portfolio.price}RWF</p>
+            <p className="text-lg font-bold text-gray-900">
+              {Portfolio.price}RWF
+            </p>
             <span className="text-xs font-medium text-green-600">+2.4%</span>
           </div>
           <p className="text-xs text-gray-500">{Portfolio.quantity} shares</p>
@@ -65,10 +64,8 @@ function StockCard({Portfolio} : {Portfolio : Portfolio}) {
 }
 
 export default function Portfolio() {
-
-  const {user} = useUser()
-  const { portfolio } = UsePortfolio(user.id)
-  
+  const { user } = useUser();
+  const { portfolio } = UsePortfolio(user.id);
 
   return (
     <div className="max-w-full">
@@ -76,14 +73,19 @@ export default function Portfolio() {
       <p className="text-gray-600 text-sm mb-4">
         Track and manage your stock investments in one place
       </p>
-      <div className="max-w-full overflow-x-auto">
-        <div className="flex gap-4 pb-4">
-          {/* {[1, 2, 3, 4].map((_, index) => (
-            <StockCard key={index} />
-          ))} */}
-          {portfolio.map((item,index) => {
-            return <StockCard key={index} Portfolio={item}/>
-          })}
+      <div className="relative w-full">
+        <div
+          className="absolute w-full h-[200px] overflow-x-auto scrollbar-hide"
+          style={{
+            msOverflowStyle: "none",
+            scrollbarWidth: "none",
+          }}
+        >
+          <div className="inline-flex gap-4 pb-4">
+            {portfolio.map((item, index) => {
+              return <StockCard key={index} Portfolio={item} />;
+            })}
+          </div>
         </div>
       </div>
     </div>
