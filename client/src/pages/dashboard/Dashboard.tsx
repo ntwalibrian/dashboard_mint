@@ -15,7 +15,7 @@ function Dashboard() {
         <div className="border-b-2 w-full border-slate-300 sticky top-0 z-50 bg-white">
           <Navbar />
         </div>
-        <div className="p-4 font-bold">
+        <div className="p-4 font-bold ">
           <Portfolio />
         </div>
       </div>

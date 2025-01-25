@@ -6,6 +6,7 @@ export interface Stocks {
     logo: string
     change: number
     marketCap: number
+    total_supply:number
     ceo: string
     founded: string
     headquarters: string

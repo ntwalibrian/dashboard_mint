@@ -8,7 +8,7 @@ import UsePortfolio from "../hooks/UsePortfolio";
 function Sidebar() {
   const { logout } = useUser();
   const navigate = useNavigate();
-  const [showBalance, setShowBalance] = useState(true);
+  const [showBalance, setShowBalance] = useState(false);
   const { user } = useUser();
   const { totalValue } = UsePortfolio(user.id);
   return (
