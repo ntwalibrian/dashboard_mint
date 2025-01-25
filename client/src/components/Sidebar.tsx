@@ -1,14 +1,16 @@
-import  { useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import NavLinks from "./NavLinks";
 import { useUser } from "../context/UserContext";
 import { LogOut, Eye, EyeOff } from "lucide-react";
+import UsePortfolio from "../hooks/UsePortfolio";
 
 function Sidebar() {
   const { logout } = useUser();
   const navigate = useNavigate();
   const [showBalance, setShowBalance] = useState(true);
-
+  const { user } = useUser();
+  const { totalValue } = UsePortfolio(user.id);
   return (
     <div className="h-screen w-full px-2 py-3 flex flex-col">
       <div
@@ -37,7 +39,7 @@ function Sidebar() {
 
           <div className="flex items-baseline space-x-1">
             <p className="text-xl font-bold text-white">
-              {showBalance ? "1,234,567" : "****"}
+              {showBalance ? `${totalValue}` : "****"}
             </p>
             <p className="text-sm text-gray-400">RWF</p>
           </div>

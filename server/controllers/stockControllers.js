@@ -24,7 +24,22 @@ exports.get_portfolio = (req, res) => {
       return res.status(500).json({ error: "Error occurred: " + err });
     }
     if (results.rows.length === 0) {
-      return res.status(404).json({ error: "Portfolio not found"})
+      return res.status(404).json({ error: "Portfolio not found" });
+    }
+    return res.json(results);
+  });
+};
+
+exports.get_listings = (req, res) => {
+  const query = `
+  SELECT * FROM stocks
+    `;
+  db.query(query, (err, results) => {
+    if (err) {
+      return res.status(500).json({ error: "Error occurred: " + err });
+    }
+    if (results.rows.length === 0) {
+      return res.status(404).json({ error: "no Listings not found" });
     }
     return res.json(results);
   });
