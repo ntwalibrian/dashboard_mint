@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const path = require("path");
 const authControllers = require("./controllers/authControllers");
+const stockControllers = require("./controllers/stockControllers");
 
 
 const app = express();
@@ -16,7 +17,7 @@ app.get("/api", (req, res) => {
 });
 app.get("/api/users", authControllers.getUsers);
 app.post("/verify_user", authControllers.validateUser)
-
+app.post("/get_portfolio", stockControllers.get_portfolio)
 
 
 app.listen(8080, () => {

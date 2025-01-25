@@ -12,7 +12,7 @@ exports.getUsers = (req, res) => {
       res.status(200).json(result.rows);
     }
   });
-};
+}; 
 
 exports.validateUser = (req, res) => {
   const username = req.body.username;
