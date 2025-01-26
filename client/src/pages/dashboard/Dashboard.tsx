@@ -2,6 +2,7 @@ import Sidebar from "../../components/Sidebar";
 import Navbar from "../../components/Navbar";
 import Portfolio from "../../components/dashboard/Portfolio";
 import UseListings from "../../hooks/UseListings";
+import BalanceCard from "../../components/dashboard/Balance";
 function Dashboard() {
   const { stocks } = UseListings();
   console.table(stocks);
@@ -18,7 +19,7 @@ function Dashboard() {
         <div className="p-4 font-bold ">
           <Portfolio />
         </div>
-        
+        <BalanceCard/>
       </div>
     </div>
   );

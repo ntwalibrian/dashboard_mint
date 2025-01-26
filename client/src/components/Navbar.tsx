@@ -18,7 +18,7 @@ function Navbar() {
           />
           <input
             type="text"
-            placeholder="Search..."
+            placeholder="Search stonks..."
             className="pl-10 pr-4 py-2 bg-white/10 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-blue-500 w-[200px] md:w-[300px]"
           />
         </div>
