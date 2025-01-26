@@ -21,7 +21,7 @@ function Sidebar() {
       </div>
       <div
         className="w-full rounded-lg mb-5 cursor-pointer overflow-hidden relative group bg-black"
-        onClick={() => navigate("/dashboard")}
+        // onClick={() => navigate("/dashboard")}
       >
         <div className="relative h-20 p-4 flex flex-col justify-between">
           <div className="flex items-center justify-between">

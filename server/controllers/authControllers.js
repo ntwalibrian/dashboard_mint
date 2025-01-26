@@ -12,7 +12,7 @@ exports.getUsers = (req, res) => {
       res.status(200).json(result.rows);
     }
   });
-}; 
+};
 
 exports.validateUser = (req, res) => {
   const username = req.body.username;
@@ -48,6 +48,37 @@ exports.validateUser = (req, res) => {
       success: "Login successful",
       user: { id: user.id, username: user.username },
       token: token,
+    });
+  });
+};
+
+exports.createUser = (req, res) => {
+  const username = req.body.username;
+  const password = req.body.password;
+
+  if (!username || !password) {
+    return res
+      .status(400)
+      .json({ error: "Username and password are required fr bck" });
+  }
+  const query = `
+    INSERT INTO users ("name", "username", "password", "email")
+    VALUES ($1, $2, $3, $4)
+    RETURNING *;`;
+  const values = [
+    req.body.fullName,
+    req.body.username,
+    req.body.password,
+    req.body.email,
+  ];
+  db.query(query, values, (err, result) => {
+    if (err) {
+      console.error("Database error:", err);
+      return res.status(500).json({ message: "Error occurred: " + err.message });
+    }
+    return res.status(201).json({
+      success: "User successfully created",
+      user: result.rows[0],
     });
   });
 };

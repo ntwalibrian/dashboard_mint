@@ -20,6 +20,7 @@ app.post("/verify_user", authControllers.validateUser)
 app.post("/get_portfolio", stockControllers.get_portfolio)
 app.get("/get_listings",stockControllers.get_listings)
 app.post("/post_direct_buy", orderControllers.postDirectBuy)
+app.post("/create_user", authControllers.createUser)
 
 
 app.listen(8080, () => {
