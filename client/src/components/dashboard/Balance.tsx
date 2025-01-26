@@ -1,58 +1,48 @@
-import React from 'react';
+import React, { useState } from "react";
+import { Eye, EyeOff } from "lucide-react";
 
-interface BalanceProps {
-  balance?: number;
-  onFundWallet?: () => void;
-}
+function BalanceCard() {
+  const [balanceVisible, setBalanceVisible] = useState<boolean>(false);
+  const [balance, setBalance] = useState<number>(1000.0); // Example balance
 
-const Balance = ({ balance = 0, onFundWallet }: BalanceProps) => {
+  const toggleBalanceVisibility = (): void => {
+    setBalanceVisible(!balanceVisible);
+  };
+
+  const handleFundWallet = (): void => {
+    // Placeholder function for funding wallet
+    alert("Funding your Mint wallet!");
+  };
+
   return (
-    <div className="bg-white rounded-2xl p-8 shadow-lg w-full max-w-md border border-gray-200">
-      <div className="flex items-center gap-4 mb-6">
-        <div className="bg-indigo-100 p-3 rounded-xl">
-          <svg 
-            className="w-7 h-7 text-indigo-600" 
-            fill="none" 
-            stroke="currentColor" 
-            viewBox="0 0 24 24"
+    <div className="ml-4 max-w-sm mx-0 bg-black text-white shadow-lg p-4 rounded-2xl">
+      <div className="p-4">
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-white text-xl font-semibold">Mint Wallet</h2>
+          <button
+            onClick={toggleBalanceVisibility}
+            className="text-white focus:outline-none"
           >
-            <path 
-              strokeLinecap="round" 
-              strokeLinejoin="round" 
-              strokeWidth="2" 
-              d="M3 3h18v18H3zM3 9h18M15 15h2"
-            />
-          </svg>
+            {balanceVisible ? <EyeOff size={20} /> : <Eye size={20} />}
+          </button>
         </div>
-        <div>
-          <h2 className="text-2xl font-bold text-gray-900">
-            Wallet Balance
-          </h2>
-          <p className="text-gray-500 text-sm">
-            Available funds for minting
-          </p>
+        <div className="text-center mb-6">
+          <p className="text-sm font-light">Available Balance</p>
+          <h3 className="text-3xl font-bold">
+            {balanceVisible ? `$${balance.toFixed(2)}` : "****"}
+          </h3>
         </div>
-      </div>
-      
-      <div className="mb-8">
-        <div className="text-5xl font-bold text-gray-900 tracking-tight">
-          ${balance.toFixed(2)}
-        </div>
-        <div className="text-gray-500 text-sm mt-1">
-          USD Balance
+        <div className="w-full flex justify-center">
+          <button
+            onClick={handleFundWallet}
+            className="bg-white text-black px-4 py-2 rounded-lg shadow-md focus:outline-none"
+          >
+            Fund Wallet
+          </button>
         </div>
       </div>
-
-      <button 
-        onClick={onFundWallet}
-        className="w-full bg-indigo-600 text-white py-4 px-6 rounded-xl
-                 font-semibold text-lg hover:bg-indigo-700 transition-colors
-                 duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-      >
-        Fund My Mint Wallet
-      </button>
     </div>
   );
 };
 
-export default Balance;
+export default BalanceCard;
