@@ -21,6 +21,7 @@ app.post("/get_portfolio", stockControllers.get_portfolio)
 app.get("/get_listings",stockControllers.get_listings)
 app.post("/post_direct_buy", orderControllers.postDirectBuy)
 app.post("/create_user", authControllers.createUser)
+app.post("/get_balance", stockControllers.get_balance)
 
 
 app.listen(8080, () => {

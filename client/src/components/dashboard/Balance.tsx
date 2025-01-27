@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
+import { useUser } from "../../context/UserContext";
+import UseBalance from "../../hooks/UseBalance";
 
 function BalanceCard() {
   const [balanceVisible, setBalanceVisible] = useState<boolean>(false);
-  const [balance, setBalance] = useState<number>(1000.0); // Example balance
+  // const [balance, setBalance] = useState<number>(1000.0); // Example balance
+  const {user} = useUser()
+  const {balance} = UseBalance(user.id)
 
   const toggleBalanceVisibility = (): void => {
     setBalanceVisible(!balanceVisible);
@@ -29,7 +33,7 @@ function BalanceCard() {
         <div className="text-center mb-6">
           <p className="text-sm font-light">Available Balance</p>
           <h3 className="text-3xl font-bold">
-            {balanceVisible ? `$${balance.toFixed(2)}` : "****"}
+            {balanceVisible ? `RFW${balance}` : "****"}
           </h3>
         </div>
         <div className="w-full flex justify-center">

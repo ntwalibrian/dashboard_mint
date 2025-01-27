@@ -28,6 +28,12 @@ const processDirectBuy = async () => {
                                DO UPDATE SET quantity = user_stock_holdings.quantity + $3`,
           [user_id, stock_id, quantity, limit_price]
         );
+
+        await db.query(
+          "UPDATE stocks SET total_supply = total_supply - $1 WHERE id = $2",
+          [quantity, stock_id]
+        )
+
         await db.query(
           "UPDATE buy_order SET status = 'completed' WHERE order_id = $1",
           [order_id]
