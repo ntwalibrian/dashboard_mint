@@ -1,5 +1,3 @@
-// ibi ni filler ntusare
-
 import { useUser } from "../../context/UserContext";
 import UsePortfolio from "../../hooks/UsePortfolio";
 
@@ -68,23 +66,23 @@ export default function Portfolio() {
   const { portfolio } = UsePortfolio(user.id);
 
   return (
-    <div className="max-w-full">
+    <div className="w-full">
       <h2 className="text-xl font-bold text-gray-900 mb-2">My Portfolio</h2>
       <p className="text-gray-600 text-sm mb-4">
         Track and manage your stock investments in one place
       </p>
-      <div className="relative w-full">
-        <div
-          className="absolute w-full h-[200px] overflow-x-auto scrollbar-hide"
+      <div className="relative h-[200px]">
+        <div 
+          className="absolute w-full overflow-x-auto scrollbar-hide"
           style={{
             msOverflowStyle: "none",
             scrollbarWidth: "none",
           }}
         >
           <div className="inline-flex gap-4 pb-4">
-            {portfolio.map((item, index) => {
-              return <StockCard key={index} Portfolio={item} />;
-            })}
+            {portfolio.map((item, index) => (
+              <StockCard key={index} Portfolio={item} />
+            ))}
           </div>
         </div>
       </div>

@@ -5,7 +5,7 @@ import UseBalance from "../../hooks/UseBalance";
 
 function BalanceCard() {
   const [balanceVisible, setBalanceVisible] = useState<boolean>(false);
-  // const [balance, setBalance] = useState<number>(1000.0); // Example balance
+  
   const {user} = useUser()
   const {balance} = UseBalance(user.id)
 
@@ -19,7 +19,7 @@ function BalanceCard() {
   };
 
   return (
-    <div className="ml-4 max-w-sm mx-0 bg-black text-white shadow-lg p-4 rounded-2xl">
+    <div className="max-w-sm mx-0 bg-black text-white shadow-lg p-4 rounded-2xl">
       <div className="p-4">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-white text-xl font-semibold">Mint Wallet</h2>
