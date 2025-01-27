@@ -19,7 +19,7 @@ function BalanceCard() {
   };
 
   return (
-    <div className="max-w-sm mx-0 bg-black text-white shadow-lg p-4 rounded-2xl">
+    <div className="max-w-sm mx-0 bg-black text-white shadow-md p-4 rounded-2xl">
       <div className="p-4">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-white text-xl font-semibold">Mint Wallet</h2>
