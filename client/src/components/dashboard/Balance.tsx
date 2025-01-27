@@ -14,7 +14,7 @@ function BalanceCard() {
   };
 
   const handleFundWallet = (): void => {
-    // Placeholder function for funding wallet
+    
     alert("Funding your Mint wallet!");
   };
 

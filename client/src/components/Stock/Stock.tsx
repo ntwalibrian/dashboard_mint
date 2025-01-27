@@ -78,7 +78,7 @@ export function Stock() {
   return (
     <div className="w-full flex flex-col items-start ">
       <h2 className="text-xl font-bold text-gray-900 mb-2">Available Stocks</h2>
-      <div className="w-full flex flex-col items-start gap-2 rounded-lg overflow-hidden">
+      <div className="w-full flex flex-col items-start gap-2 rounded-lg overflow-hidden pb-3">
         {stocks.map((item, index) => {
           return <Card key={index} stock={item} onBuy={handleBuyClick} />;
         })}
